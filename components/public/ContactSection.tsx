@@ -102,9 +102,20 @@ export default function ContactSection({ settings }: { settings: Settings }) {
 
           {/* Map iframe */}
           <div className="rounded-3xl overflow-hidden h-80 lg:h-full min-h-80 bg-gray-800 border border-gray-700">
-            {settings.googleMapLink ? (
+            {settings.googleMapLink?.includes('maps/embed') ? (
               <iframe
-                src={settings.googleMapLink.replace('/maps/', '/maps/embed?').replace('?q=', '?q=')}
+                src={settings.googleMapLink}
+                width="100%"
+                height="100%"
+                style={{border:0}}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="min-h-80"
+              />
+            ) : settings.address ? (
+              <iframe
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(settings.address)}&output=embed`}
                 width="100%"
                 height="100%"
                 style={{border:0}}
